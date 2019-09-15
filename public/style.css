@@ -1,22 +1,31 @@
-/* styles */
-/* called by your view template */
-
-* {
-  box-sizing: border-box;
-}
-
 body {
-  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
-  margin: 2em;
+  font-family: 'Roboto',
+    sans-serif;
 }
 
-h1 {
-  font-style: italic;
-  color: #373fff;
+.nav-margin {
+  margin: 25px;
 }
 
-.bold {
+.has-bg-img {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://source.unsplash.com/FK81rxilUXg/1600x900");
+}
+
+.title {
   font-weight: bold;
+  font-size: 400%;
+}
+
+.subtitle {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 150%;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
 }
 
 p {
@@ -41,31 +50,4 @@ input {
   border: 1px solid lightgrey;
   border-radius: 3px;
   font-size: 16px;
-}
-
-button {
-  font-size: 16px;
-  border-radius: 3px;
-  background-color: lightgrey;
-  border: 1px solid grey;
-  box-shadow: 2px 2px teal;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: yellow;
-}
-
-button:active {
-  box-shadow: none;
-}
-
-li {
-  margin-bottom: 5px;
-}
-
-footer {
-  margin-top: 50px;
-  padding-top: 25px;
-  border-top: 1px solid lightgrey;
 }

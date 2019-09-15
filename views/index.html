@@ -11,51 +11,177 @@
 <html lang="en">
 
 <head>
-  <title>Welcome to Glitch!</title>
-  <meta name="description" content="A cool thing made with Glitch">
-  <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+  <title>shopr</title>
+  <meta name="description" content="your online wishlist">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
 
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <!-- import the webpage's stylesheet -->
   <link rel="stylesheet" href="/style.css">
 
   <!-- import the webpage's client-side javascript file -->
   <script src="/client.js" defer></script>
 </head>
+<section class="hero is-dark is-medium has-bg-img">
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <div class="flex">
+            <i class="fas fa-tags fa-lg nav-margin"></i>
+            <h2 class="subtitle">Welcome, Ben</h2>
+          </div>
+        </div>
+        <div class="navbar-end">
+          <i class="far fa-user fa-lg nav-margin"></i>
+        </div>
+      </div>
+    </nav>
+  </div>
 
-<body>
-  <header>
-    <h1>
-      A Dream of the Future
-    </h1>
-  </header>
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        shopr
+      </h1>
+      <h2 class="subtitle">
+        your online wishlist
+      </h2>
+      <a class="button is-light is-normal is-outlined" data-target="#addItem">
+        Add Item
+      </a>
+    </div>
+  </div>
+</section>
 
-  <main>
-    <p class="bold">Oh hi,</p>
+<!–– NEW MODAL ––>
+  <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="addItemLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add to your wishlist</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="name" class="col-form-label">Name</label>
+              <input id="name" type="text" class="form-control">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="price">Price</label>
+                <input id="price" type="text" class="form-control" placeholder="$ USD">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="category">Category</label>
+                <select id="category" class="form-control">
+                  <option selected>Fashion</option>
+                  <option>Tech</option>
+                  <option>Sports</option>
+                  <option>Gaming</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="rating">Rating</label>
+                <select id="rating" class="form-control">
+                  <option selected>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="link">Link</label>
+              <input id="link" type="text" class="form-control">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="newBtn" type="button" class="btn btn-success" data-dismiss="modal">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <p>Tell me your hopes and dreams:</p>
+  <!–– EDIT MODAL ––>
+    <div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="editItemLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalTitle">Edit an Item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="editName" class="col-form-label">Name</label>
+                <input id="editName" type="text" class="form-control">
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="editPrice">Price</label>
+                  <input id="editPrice" type="text" class="form-control" placeholder="$ USD">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="editCategory">Category</label>
+                  <select id="editCategory" class="form-control">
+                    <option selected>Fashion</option>
+                    <option>Tech</option>
+                    <option>Sports</option>
+                    <option>Gaming</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="editRating">Rating</label>
+                  <select id="editRating" class="form-control">
+                    <option selected>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="editLink">Link</label>
+                <input id="editLink" type="text" class="form-control">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="editBtn" type="button" class="btn btn-success" data-dismiss="modal">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <form>
-      <input name="dream" type="text" maxlength="100" placeholder="Dreams!" aria-labelledby="submit-dream">
-      <button type="submit" id="submit-dream">Submit Dream</button>
-    </form>
+    <div class="container">
+      <h2 class="mt-3">Favorites</h2>
+      <div id="favorites" class="card-deck mt-3"></div>
 
-    <section class="dreams">
-      <ul id="dreams"></ul>
-    </section>
-  </main>
+      <div class="is-divider" data-content="OR"></div>
 
-  <footer>
-    Made with <a href="https://glitch.com">Glitch</a>!
-  </footer>
-
-  <!-- include the Glitch button to show what the webpage is about and
-          to make it easier for folks to view source and remix -->
-  <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-  <script src="https://button.glitch.me/button.js"></script>
-
-</body>
+      <h2 class="mt-3">Wishlist</h2>
+      <table id="table" class="table table-borderless mt-3"></table>
+    </div>
+    </body>
 
 </html>
