@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "username": "ben",
+      "password": "password"
+    }
+  ],
+  "items": [
+    {
+      "id": "SUoMRV7",
+      "name": "Desk Fan",
+      "category": "Other",
+      "rating": 2,
+      "usd": 13,
+      "eur": "11.83",
+      "link": "https://www.amazon.com/Clearance-Desktop-Bladeless-Portable-Cooling/dp/B07FD9T289/ref=asc_df_B07FD9T289/?tag=hyprod-20&linkCode=df0&hvadid=309802461542&hvpos=1o1&hvnetw=g&hvrand=1596770394932056941&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9001843&hvtargid=aud-829758849484:pla-568381492039&psc=1"
+    },
+    {
+      "id": "6KItHJiw",
+      "name": "Macbook Pro",
+      "category": "Tech",
+      "rating": 3,
+      "usd": 1299,
+      "eur": 1178.31,
+      "link": "https://www.apple.com/shop/buy-mac/macbook-pro/13-inch-space-gray-1.4ghz-quad-core-processor-with-turbo-boost-up-to-3.9ghz-128gb?afid=p238%7Csbepnohbm-dc_mtid_1870765e38482_pcrid_246386726307_pgrid_14874568330_&cid=aos-us-kwgo-pla-mac--slid-----product-MUHN2LL/A"
+    },
+    {
+      "id": "OU3mTG7",
+      "name": "Razor Scooter",
+      "category": "Sports",
+      "rating": 5,
+      "usd": 56,
+      "eur": "50.96",
+      "link": "no link"
+    },
+    {
+      "id": "kUHoeBY",
+      "name": "Apple TV+",
+      "category": "Tech",
+      "rating": 3,
+      "usd": 120,
+      "eur": "109.20",
+      "link": "no link"
+    }
+  ]
+}

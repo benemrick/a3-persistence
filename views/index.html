@@ -17,8 +17,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <!-- import the webpage's stylesheet -->
   <link rel="stylesheet" href="/style.css">
@@ -26,103 +26,32 @@
   <!-- import the webpage's client-side javascript file -->
   <script src="/client.js" defer></script>
 </head>
-<section class="hero is-dark is-medium has-bg-img">
-  <!-- Hero head: will stick at the top -->
-  <div class="hero-head">
-    <nav class="navbar">
-      <div class="container">
-        <div class="navbar-brand">
-          <div class="flex">
-            <i class="fas fa-tags fa-lg nav-margin"></i>
-            <h2 class="subtitle">Welcome, Ben</h2>
-          </div>
-        </div>
-        <div class="navbar-end">
-          <i class="far fa-user fa-lg nav-margin"></i>
-        </div>
-      </div>
-    </nav>
-  </div>
 
-  <!-- Hero content: will be in the middle -->
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <h1 class="title">
-        shopr
-      </h1>
-      <h2 class="subtitle">
-        your online wishlist
-      </h2>
-      <a class="button is-light is-normal is-outlined" data-target="#addItem">
-        Add Item
+<body>
+  <nav class="navbar navbar-expand-sm fixed-top navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-tags fa-lg mt-2" style="color:white"></i>
+      </a>
+      <a class="navbar-brand" href="#">
+        <i class="far fa-user fa-lg mt-2 mr-1" style="color:white"></i> </i>
       </a>
     </div>
-  </div>
-</section>
-
-<!–– NEW MODAL ––>
-  <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="addItemLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add to your wishlist</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="name" class="col-form-label">Name</label>
-              <input id="name" type="text" class="form-control">
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="price">Price</label>
-                <input id="price" type="text" class="form-control" placeholder="$ USD">
-              </div>
-              <div class="form-group col-md-4">
-                <label for="category">Category</label>
-                <select id="category" class="form-control">
-                  <option selected>Fashion</option>
-                  <option>Tech</option>
-                  <option>Sports</option>
-                  <option>Gaming</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div class="form-group col-md-4">
-                <label for="rating">Rating</label>
-                <select id="rating" class="form-control">
-                  <option selected>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="link">Link</label>
-              <input id="link" type="text" class="form-control">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="newBtn" type="button" class="btn btn-success" data-dismiss="modal">Add</button>
-        </div>
-      </div>
+  </nav>
+  <div class="header-image">
+    <div class="header-text">
+      <h1 id="title">shopr</h1>
+      <p class="slogan">your online wishlist</p>
+      <button type="button" class="btn btn-light" data-toggle="modal" data-target="#addItem">Add item</button>
     </div>
   </div>
 
-  <!–– EDIT MODAL ––>
-    <div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="editItemLabel"
-      aria-hidden="true">
+  <!–– NEW MODAL ––>
+    <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="addItemLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalTitle">Edit an Item</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Add to your wishlist</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -130,17 +59,17 @@
           <div class="modal-body">
             <form>
               <div class="form-group">
-                <label for="editName" class="col-form-label">Name</label>
-                <input id="editName" type="text" class="form-control">
+                <label for="name" class="col-form-label">Name</label>
+                <input id="name" type="text" class="form-control">
               </div>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  <label for="editPrice">Price</label>
-                  <input id="editPrice" type="text" class="form-control" placeholder="$ USD">
+                  <label for="price">Price</label>
+                  <input id="price" type="text" class="form-control" placeholder="$ USD">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="editCategory">Category</label>
-                  <select id="editCategory" class="form-control">
+                  <label for="category">Category</label>
+                  <select id="category" class="form-control">
                     <option selected>Fashion</option>
                     <option>Tech</option>
                     <option>Sports</option>
@@ -149,8 +78,8 @@
                   </select>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="editRating">Rating</label>
-                  <select id="editRating" class="form-control">
+                  <label for="rating">Rating</label>
+                  <select id="rating" class="form-control">
                     <option selected>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -160,28 +89,92 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="editLink">Link</label>
-                <input id="editLink" type="text" class="form-control">
+                <label for="link">Link</label>
+                <input id="link" type="text" class="form-control">
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="editBtn" type="button" class="btn btn-success" data-dismiss="modal">Update</button>
+            <button id="newBtn" type="button" class="btn btn-success" data-dismiss="modal">Add</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="container">
-      <h2 class="mt-3">Favorites</h2>
-      <div id="favorites" class="card-deck mt-3"></div>
+    <!–– EDIT MODAL ––>
+      <div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="editItemLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalTitle">Edit an Item</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="editName" class="col-form-label">Name</label>
+                  <input id="editName" type="text" class="form-control">
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="editPrice">Price</label>
+                    <input id="editPrice" type="text" class="form-control" placeholder="$ USD">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="editCategory">Category</label>
+                    <select id="editCategory" class="form-control">
+                      <option selected>Fashion</option>
+                      <option>Tech</option>
+                      <option>Sports</option>
+                      <option>Gaming</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="editRating">Rating</label>
+                    <select id="editRating" class="form-control">
+                      <option selected>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="editLink">Link</label>
+                  <input id="editLink" type="text" class="form-control">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="editBtn" type="button" class="btn btn-success" data-dismiss="modal">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div class="is-divider" data-content="OR"></div>
+      <div class="container">
+        <h2 class="mt-3">Favorites</h2>
+        <div id="favorites" class="card-deck mt-3"></div>
+        <h2 class="mt-3">Wishlist</h2>
+        <table id="table" class="table table-borderless mt-3"></table>
+      </div>
 
-      <h2 class="mt-3">Wishlist</h2>
-      <table id="table" class="table table-borderless mt-3"></table>
-    </div>
-    </body>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+      </script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+      </script>
+</body>
 
 </html>

@@ -1,8 +1,8 @@
 //global
-let currEditIndex = 0;
+let currEditId = 0;
 
-function setEditIndex(index) {
-  return currEditIndex = index;
+function setEditIndex(id) {
+  return currEditId = id;
 }
 
 const displayStars = function (rating) {
@@ -17,9 +17,13 @@ const displayStars = function (rating) {
 }
 
 const loadFavorites = async function () {
-  const resp = await fetch('/items', { method: 'GET' });
-  const data = await resp.json();
-  const favs = data.data;
+  const resp = await fetch('/items', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const favs = await resp.json();
 
   let htmlCard = "";
 
@@ -32,7 +36,6 @@ const loadFavorites = async function () {
                         <p class="card-text"><medium class="text-muted">${favs[i].category}</medium></p>
                         <p class="card-text">Price: $${favs[i].usd} | €${favs[i].eur}</p>
                         <a class="btn btn-secondary stretched-link" href="${favs[i].link} target="_blank">Buy</a> 
-
                     </div>
                     <div class="card-footer bg-transparent">${stars}</div>
                   </div>`;
@@ -43,9 +46,13 @@ const loadFavorites = async function () {
 };
 
 const loadAllResults = async function () {
-  const resp = await fetch('/items', { method: 'GET' });
-  const data = await resp.json();
-  const favs = data.data;
+  const resp = await fetch('/items', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const favs = await resp.json();
 
   let htmlTable = `<thead class="thead-dark">
                         <tr>
@@ -67,8 +74,8 @@ const loadAllResults = async function () {
                         <td>$${favs[i].usd}</td>
                         <td>€${favs[i].eur}</td>
                         <td>${stars}</td>
-                        <td> <button id="editBtn${i}" type="button" class="btn btn-light" data-toggle="modal" data-target="#editItem" onclick="setEditIndex(${i})"> <i class="fas fa-edit"></i></button>
-                        <td> <button id="deleteBtn${i}" type="button" class="btn btn-light" onclick="deleteItem(${i})"> <i class="fas fa-trash"></i></button>
+                        <td> <button id="editBtn${i}" type="button" class="btn btn-light" data-toggle="modal" data-target="#editItem" onclick="setEditIndex('${favs[i].id}')"> <i class="fas fa-edit"></i></button>
+                        <td> <button id="deleteBtn${i}" type="button" class="btn btn-light" onclick="deleteItem('${favs[i].id}')"> <i class="fas fa-trash"></i></button>
                       </tr>
         `;
   }
@@ -91,12 +98,21 @@ const newItem = function (e) {
     inRating = document.querySelector('#rating'),
     inPrice = document.querySelector('#price'),
     inLink = document.querySelector('#link'),
-    json = { name: inName.value, category: inCategory.value, rating: inRating.value, usd: inPrice.value, link: inLink.value },
+    json = {
+      name: inName.value,
+      category: inCategory.value,
+      rating: inRating.value,
+      usd: inPrice.value,
+      link: inLink.value
+    },
     body = JSON.stringify(json)
-  fetch('/submit', {
-    method: 'POST',
-    body
-  })
+  fetch('/', {
+      method: 'POST',
+      body,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
     .then(function (response) {
       refresh()
       console.log(response)
@@ -104,13 +120,18 @@ const newItem = function (e) {
   return false
 }
 
-const deleteItem = function (arrPosition) {
-  const indexJson = { index: arrPosition };
-  const body = JSON.stringify(indexJson);
-  fetch('/delete', {
-    method: 'DELETE',
-    body
-  })
+const deleteItem = function (id) {
+  const idJson = {
+    id: id
+  };
+  const body = JSON.stringify(idJson);
+  fetch('/', {
+      method: 'DELETE',
+      body,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
     .then(function (response) {
       refresh()
       console.log(response)
@@ -126,19 +147,30 @@ const editItem = function (e) {
     inRating = document.querySelector('#editRating'),
     inPrice = document.querySelector('#editPrice'),
     inLink = document.querySelector('#editLink'),
-    json = { name: inName.value, category: inCategory.value, rating: inRating.value, usd: inPrice.value, link: inLink.value, index: currEditIndex },
+    json = {
+      id: currEditId,
+      name: inName.value,
+      category: inCategory.value,
+      rating: inRating.value,
+      usd: inPrice.value,
+      link: inLink.value,
+    },
     body = JSON.stringify(json)
 
-  fetch('/update', {
-    method: 'PUT',
-    body
-  })
+  fetch('/', {
+      method: 'PUT',
+      body,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
     .then(function (response) {
       refresh()
       console.log(response)
     })
   return false
 }
+
 
 window.onload = function () {
   refresh()
@@ -148,5 +180,4 @@ window.onload = function () {
 
   const editButton = document.getElementById('editBtn')
   editButton.onclick = editItem
-
 }
