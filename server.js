@@ -15,9 +15,9 @@ const db = low(adapter)
 //middleware
 const bodyParser = require('body-parser')
 const shortid = require('shortid')
-const session = require('express-session')
-const passport = require('passport')
-const Local = require('passport-local').Strategy
+// const session = require('express-session')
+// const passport = require('passport')
+// const Local = require('passport-local').Strategy
 
 
 // we've started you off with Express, 
@@ -105,17 +105,22 @@ function calcEuroPrice(usd) {
 
 function sortData() {
   // sort the data to ensure favorite are always first 3 elements
-  console.log("IN SORT")
+  //console.log("IN SORT")
   let sorted = db.get('items').sortBy("rating").value();
 
-  console.log(sorted)
+  //console.log(sorted)
   //appdata.sort((a, b) => (a.rating < b.rating) ? 1 : (a.rating === b.rating) ? ((a.usd > b.usd) ? 1 : -1) : -1);
 }
 
 // ROUTING
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+  res.sendFile(__dirname + '/views/login.html');
+});
+
+app.get('/index', function (req, res) {
+  console.log("sending index page");
+  res.s(__dirname + '/views/index.html');
 });
 
 app.get('/items', function (req, res) {

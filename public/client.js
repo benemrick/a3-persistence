@@ -171,7 +171,6 @@ const editItem = function (e) {
   return false
 }
 
-
 window.onload = function () {
   refresh()
 
@@ -180,4 +179,12 @@ window.onload = function () {
 
   const editButton = document.getElementById('editBtn')
   editButton.onclick = editItem
+
+  const signIn = document.getElementById('signButton')
+  signIn.onclick = fetch('/index', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 }
