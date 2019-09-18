@@ -15,7 +15,7 @@ This site is built with an `express.js` server that uses `passport.js` middlewar
 5. `response-time` to record HTTP response time (in ms) in the header of each request
 
 ## Technical Achievements
-- **shorid library**: 
+- **shortid library**: I used the `shortid` (https://github.com/dylang/shortid) javascript library to generate unique, web-friendly ids for each item record in the database. I used the `shortid.generate()` function in `server.js` when creating json records to seed the database with and in the `app.post('/items'` route handler when creating new items to add to the database.
 
 ### Design/Evaluation Achievements
 - **HTML Accessibility**: I analyzed the accessibility of my site using Chrome's built-in accessibility audit tool available in the developer tools. Using the recommended strategies and manual evaluation suggestions I was able to improve the site's accessibility score from a 54 to a 71. The site now passes 9 automatic audits as opposed to the pervious 3. The outstanding failures are a result of standard Bootstrap class naming conventions.
