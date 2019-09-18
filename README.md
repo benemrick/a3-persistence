@@ -19,3 +19,6 @@ This site is built with an `express.js` server that uses `passport.js` middlewar
 
 ### Design/Evaluation Achievements
 - **HTML Accessibility**: I analyzed the accessibility of my site using Chrome's built-in accessibility audit tool available in the developer tools. Using the recommended strategies and manual evaluation suggestions I was able to improve the site's accessibility score from a 54 to a 71. The site now passes 9 automatic audits as opposed to the pervious 3. The outstanding failures are a result of standard Bootstrap class naming conventions.
+
+## Known Issues
+The password input text area on the login/register page cannot be selected via standard mouse click. To enter text in the password field select the username field and then navigate using Tab on your keyboard.
