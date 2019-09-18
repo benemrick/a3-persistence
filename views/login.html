@@ -31,24 +31,23 @@
             <div class="card card-signin my-5">
                 <div class="card-body">
                     <h5 class="card-title text-center">Sign In</h5>
-                    <form class="form-signin">
+                    <form class="form-signin" onsubmit="submitForm();">
                         <div class="form-label-group">
                             <input id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                             <label for="inputEmail">Email address</label>
                         </div>
 
                         <div class="form-label-group">
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Password"
-                                required>
+                            <input id="password" type="password" id="inputPassword" class="form-control"
+                                placeholder="Password" required>
                             <label for="inputPassword">Password</label>
                         </div>
                         <button id="signButton" class="btn btn-lg btn-dark btn-block text-uppercase" type="submit">Sign
                             in</button>
 
-                        <p class="mt-3">* if you sign in with new credentials, an account will automatically be created
-                            for you!
-                        </p>
                     </form>
+                    <p id="message" class="mt-3 fail"> </p>
+
                 </div>
             </div>
         </div>

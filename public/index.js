@@ -16,21 +16,26 @@ const displayStars = function (rating) {
   return div;
 }
 
-const loadFavorites = async function () {
-  const resp = await fetch('/items', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const favs = await resp.json();
+const loadFavorites = function () {
+  fetch("/items", {
+      method: 'GET',
+      credentials: "include",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(function (response) {
+      console.log(response)
+      response.text()
+        .then(function (data) {
+          const favs = JSON.parse(data)
 
-  let htmlCard = "";
+          let htmlCard = "";
 
-  for (let i = 0; i < 3; i++) {
-    if (favs[i]) {
-      let stars = displayStars(favs[i].rating);
-      htmlCard += `<div class="card"> 
+          for (let i = 0; i < 3; i++) {
+            if (favs[i]) {
+              let stars = displayStars(favs[i].rating);
+              htmlCard += `<div class="card"> 
                        <div class="card-body">
                         <h5 class="card-title">${favs[i].name}</h5>
                         <p class="card-text"><medium class="text-muted">${favs[i].category}</medium></p>
@@ -39,22 +44,29 @@ const loadFavorites = async function () {
                     </div>
                     <div class="card-footer bg-transparent">${stars}</div>
                   </div>`;
-    }
-  }
+            }
+          }
 
-  document.getElementById("favorites").innerHTML = htmlCard;
+          document.getElementById("favorites").innerHTML = htmlCard;
+        })
+    })
 };
 
-const loadAllResults = async function () {
-  const resp = await fetch('/items', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const favs = await resp.json();
+const loadAllResults = function () {
+  fetch("/items", {
+      method: 'GET',
+      credentials: "include",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(function (response) {
+      console.log(response)
+      response.text()
+        .then(function (data) {
+          const favs = JSON.parse(data)
 
-  let htmlTable = `<thead class="thead-dark">
+          let htmlTable = `<thead class="thead-dark">
                         <tr>
                           <th scope="col">Item</th>
                           <th scope="col">Category</th>
@@ -66,9 +78,9 @@ const loadAllResults = async function () {
                       <tbody>
       `;
 
-  for (let i = 0; i < favs.length; i++) {
-    let stars = displayStars(favs[i].rating);
-    htmlTable += `<tr>
+          for (let i = 0; i < favs.length; i++) {
+            let stars = displayStars(favs[i].rating);
+            htmlTable += `<tr>
                         <td><a class="link" href="${favs[i].link} target="_blank">${favs[i].name}</a> </td>
                         <td>${favs[i].category}</td>
                         <td>$${favs[i].usd}</td>
@@ -78,11 +90,14 @@ const loadAllResults = async function () {
                         <td> <button id="deleteBtn${i}" type="button" class="btn btn-light" onclick="deleteItem('${favs[i].id}')"> <i class="fas fa-trash"></i></button>
                       </tr>
         `;
-  }
+          }
 
-  htmlTable += `</tbody>`
+          htmlTable += `</tbody>`
 
-  document.getElementById("table").innerHTML = htmlTable;
+          document.getElementById("table").innerHTML = htmlTable;
+
+        })
+    })
 };
 
 const refresh = function () {
@@ -179,12 +194,4 @@ window.onload = function () {
 
   const editButton = document.getElementById('editBtn')
   editButton.onclick = editItem
-
-  const signIn = document.getElementById('signButton')
-  signIn.onclick = fetch('/index', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
 }

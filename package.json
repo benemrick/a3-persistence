@@ -10,9 +10,15 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "lowdb": "^1.0.0",
     "mime": "^2.4.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "response-time": "^2.3.2",
+    "serve-favicon": "^2.5.0",
     "shortid": "^2.2.15"
   },
   "engines": {

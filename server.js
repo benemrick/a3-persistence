@@ -1,4 +1,4 @@
-// init project
+// init express
 const express = require('express');
 const mime = require('mime');
 const fs = require('fs');
@@ -8,25 +8,19 @@ const port = 3000;
 // lowddb
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
-
 const adapter = new FileSync('db.json')
 const db = low(adapter)
 
 //middleware
 const bodyParser = require('body-parser')
 const shortid = require('shortid')
-// const session = require('express-session')
-// const passport = require('passport')
-// const Local = require('passport-local').Strategy
+const session = require('express-session')
+const passport = require('passport')
+const Local = require('passport-local').Strategy
+const favicon = require('serve-favicon')
+var responseTime = require('response-time')
 
-
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
-
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
-app.use(bodyParser.json())
-
+// seed db
 db.defaults({
   users: [{
     "username": "ben",
@@ -39,8 +33,14 @@ db.defaults({
   })
   .write()
 
+db.defaults({
+  secret: "shopr"
+}).write()
+
+
 let yeezy = {
   'id': shortid.generate(),
+  'user': 'ben',
   'name': 'Yeezy 350 Boost',
   'category': 'Fashion',
   'rating': 5,
@@ -50,6 +50,7 @@ let yeezy = {
 };
 let mac = {
   'id': shortid.generate(),
+  'user': 'ben',
   'name': 'Macbook Pro',
   'category': 'Tech',
   'rating': 3,
@@ -59,6 +60,7 @@ let mac = {
 }
 let basketball = {
   'id': shortid.generate(),
+  'user': 'ben',
   'name': 'Wilson Basketball',
   'category': 'Sports',
   'rating': 2,
@@ -75,29 +77,78 @@ if (items.value().length === 0) {
   items.push(basketball).write();
 }
 
-// const sendFile = function (response, filename) {
-//   const type = mime.getType(filename)
+app.use(express.static('public'));
+app.use(bodyParser.json())
+app.use(session({
+  secret: db.get("secret").value(),
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(favicon(__dirname + '/public/favicon.ico'))
+app.use(responseTime())
 
-//   fs.readFile(filename, function (err, content) {
 
-//     // if the error = null, then we've loaded the file successfully
-//     if (err === null) {
+// all authentication requests in passwords assume that your client
+// is submitting a field named "username" and field named "password".
+// these are both passed as arugments to the authentication strategy.
+const myLocalStrategy = function (username, password, done) {
+  // find the first item in our users array where the username
+  // matches what was sent by the client. nicer to read/write than a for loop!
+  let user = db.get('users')
+    .find({
+      username: username
+    })
+    .value()
 
-//       // status code: https://httpstatuses.com
-//       response.writeHeader(200, {
-//         'Content-Type': type
-//       })
-//       response.end(content)
+  // if user is undefined, then there was no match for the submitted username
+  if (user === undefined) {
+    /* arguments to done():
+     - an error object (usually returned from database requests )
+     - authentication status
+     - a message / other data to send to client
+    */
+    return done(null, false, {
+      message: 'user not found'
+    })
+  } else if (user.password === password) {
+    // we found the user and the password matches!
+    // go ahead and send the userdata... this will appear as request.user
+    // in all express middleware functions.
+    return done(null, {
+      username,
+      password
+    })
+  } else {
+    // we found the user but the password didn't match...
+    return done(null, false, {
+      message: 'incorrect password'
+    })
+  }
+}
 
-//     } else {
+passport.use(new Local(myLocalStrategy))
 
-//       // file not found, error code 404
-//       response.writeHeader(404)
-//       response.end('404 Error: File Not Found')
+passport.serializeUser((user, done) => done(null, user.username))
 
-//     }
-//   })
-// }
+// "name" below refers to whatever piece of info is serialized in seralizeUser,
+// in this example we're using the username
+passport.deserializeUser((username, done) => {
+  const user = db.get('users')
+    .find({
+      username: username
+    })
+    .value()
+
+  if (user !== undefined) {
+    done(null, user)
+  } else {
+    done(null, false, {
+      message: 'user not found; session not restored'
+    })
+  }
+})
 
 function calcEuroPrice(usd) {
   return (usd * 0.91).toFixed(2);
@@ -106,7 +157,7 @@ function calcEuroPrice(usd) {
 function sortData() {
   // sort the data to ensure favorite are always first 3 elements
   //console.log("IN SORT")
-  let sorted = db.get('items').sortBy("rating").value();
+  db.get('items').sortBy("rating").value();
 
   //console.log(sorted)
   //appdata.sort((a, b) => (a.rating < b.rating) ? 1 : (a.rating === b.rating) ? ((a.usd > b.usd) ? 1 : -1) : -1);
@@ -118,20 +169,37 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/views/login.html');
 });
 
-app.get('/index', function (req, res) {
-  console.log("sending index page");
-  res.s(__dirname + '/views/index.html');
-});
-
 app.get('/items', function (req, res) {
-  sortData();
-  const items = db.get('items').value(); // get all items
+  console.log(req.user)
+  if (req.user == undefined) {
+    res.writeHead(404, {
+      'Content-Type': 'text/html'
+    })
+    res.end();
+  } else {
+    //sortData();
 
-  res.send(items)
+    const items = db.get('items').filter(__user => __user.user === req.user.username).value(); // get all items for this user
+
+    if (items === undefined) {
+      console.log("no data for this user")
+      res.end()
+    } else {
+      console.log("sending data to client")
+      res.json(items)
+    }
+  }
 });
 
-app.get('/login', function (req, res) {
-  res.sendFile(__dirname + '/views/login.html');
+app.get('/index', function (req, res) {
+  if (req.user == undefined) {
+    res.writeHead(404, {
+      'Content-Type': 'text/html'
+    })
+    res.end();
+  } else {
+    res.sendFile(__dirname + '/views/index.html');
+  }
 });
 
 app.post('/', function (req, res) {
@@ -155,6 +223,15 @@ app.post('/', function (req, res) {
   })
   res.send()
 })
+
+app.post(
+  '/login',
+  passport.authenticate('local'),
+  function (req, res) {
+    res.json({
+      username: req.user.username
+    })
+  })
 
 app.put('/', function (request, response) {
   let data = request.body;
