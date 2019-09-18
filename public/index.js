@@ -27,6 +27,7 @@ const loadFavorites = function () {
     .then(function (response) {
       console.log(response)
       response.text()
+      console.log("response body: " + response)
         .then(function (data) {
           const favs = JSON.parse(data)
 

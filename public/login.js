@@ -45,3 +45,36 @@ function submitForm() {
             console.log(err)
         })
 }
+
+function register() {
+    event.preventDefault()
+
+    let username = document.getElementById('inputEmail');
+    let password = document.getElementById('password');
+    let body = JSON.stringify({
+        username: username.value,
+        password: password.value
+    });
+
+    fetch('/register', {
+            method: 'POST',
+            body: body,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function (resp) {
+            console.log(resp)
+            if (resp.ok) {
+                debugger
+                console.log("success - ok response from /register")
+                window.location.href = "/index.html"
+            } else {
+                console.log("failed login")
+                document.getElementById("message").innerText = "* Error creating an account";
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}

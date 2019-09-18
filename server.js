@@ -177,7 +177,7 @@ app.get('/items', function (req, res) {
     })
     res.end();
   } else {
-    //sortData();
+    sortData();
 
     const items = db.get('items').filter(__user => __user.user === req.user.username).value(); // get all items for this user
 
@@ -202,7 +202,8 @@ app.get('/index', function (req, res) {
   }
 });
 
-app.post('/', function (req, res) {
+//adds a new item
+app.post('/items', function (req, res) {
   let data = req.body
   const newItemObj = {
     'id': shortid.generate(),
@@ -233,7 +234,26 @@ app.post(
     })
   })
 
-app.put('/', function (request, response) {
+app.post('/register', function (req, res) {
+  let creds = req.body
+
+  let isDuplicate = db.get("users").find(__user => __user.user === creds.username);
+
+  if (isDuplicate.value()) {
+    console.log("user already exists")
+    res.end()
+  } else {
+    db.get("users").push({
+      userName: creds.username,
+      password: creds.password
+    }).write();
+    console.log("new user added to db")
+    res.redirect(200, '/views/index.html')
+  }
+})
+
+//updates an existing item
+app.put('/items', function (request, response) {
   let data = request.body;
 
   // name
@@ -302,7 +322,7 @@ app.put('/', function (request, response) {
   response.end();
 })
 
-
+// deletes an existing item
 app.delete('/', function (request, response) {
   let data = request.body;
 
