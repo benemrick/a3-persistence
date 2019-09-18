@@ -1,7 +1,6 @@
 // init express
 const express = require('express');
-const mime = require('mime');
-const fs = require('fs');
+const favicon = require('serve-favicon')
 const app = express();
 const port = 3000;
 
@@ -17,7 +16,6 @@ const shortid = require('shortid')
 const session = require('express-session')
 const passport = require('passport')
 const Local = require('passport-local').Strategy
-const favicon = require('serve-favicon')
 var responseTime = require('response-time')
 
 // seed db
@@ -78,6 +76,7 @@ if (items.value().length === 0) {
 }
 
 app.use(express.static('public'));
+app.use(favicon(__dirname + '/public/favicon.ico'))
 app.use(bodyParser.json())
 app.use(session({
   secret: db.get("secret").value(),
@@ -86,7 +85,6 @@ app.use(session({
 }));
 app.use(passport.initialize())
 app.use(passport.session())
-app.use(favicon(__dirname + '/public/favicon.ico'))
 app.use(responseTime())
 
 
