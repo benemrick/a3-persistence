@@ -58,6 +58,7 @@ function register() {
 
     fetch('/register', {
             method: 'POST',
+            credentials: "include",
             body: body,
             headers: {
                 'Content-Type': 'application/json'
@@ -66,9 +67,26 @@ function register() {
         .then(function (resp) {
             console.log(resp)
             if (resp.ok) {
-                debugger
                 console.log("success - ok response from /register")
-                window.location.href = "/index.html"
+                fetch("/index", {
+                        method: 'GET',
+                        credentials: "include",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(function (response) {
+                        if (response.ok) {
+                            console.log("ok response from /index")
+                            window.location.href = response.url //redirect on client-side
+                        } else {
+                            console.log("GET /index failed")
+                            console.log(response)
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             } else {
                 console.log("failed login")
                 document.getElementById("message").innerText = "* Error creating an account";

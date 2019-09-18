@@ -9,50 +9,20 @@
       "password": "admin"
     },
     {
-      "userName": "t",
-      "password": "t"
-    },
-    {
-      "userName": "f",
-      "password": "f"
-    },
-    {
-      "userName": "sdfsdf",
-      "password": "sdfdsfsdf"
-    },
-    {
-      "userName": "r",
-      "password": "r"
-    },
-    {
-      "userName": "dsfsdf",
-      "password": "sssss"
-    },
-    {
-      "userName": "ttttttt",
-      "password": "dfsdfsfdsfdsf"
+      "username": "who",
+      "password": "ben"
     }
   ],
   "items": [
     {
       "id": "Lo0cVio",
       "user": "admin",
-      "name": "Yeezy 350 Boost",
-      "category": "Fashion",
+      "name": "Blank",
+      "category": "Other",
       "rating": 5,
-      "usd": 200,
-      "eur": 182,
-      "link": "https://stockx.com/adidas-yeezy-boost-350-v2-cream-white?currencyCode=USD&size=8.5&gclid=CjwKCAjwzdLrBRBiEiwAEHrAYr6Goiw3RGnCl12vXPPsgVqOjI-F36X_4AfNaeBDvt6D-mjEkhmVBBoCRBEQAvD_BwE"
-    },
-    {
-      "id": "y1VsHJc5",
-      "user": "ben",
-      "name": "Macbook Pro",
-      "category": "Tech",
-      "rating": 3,
-      "usd": 1299,
-      "eur": 1178.31,
-      "link": "https://www.apple.com/shop/buy-mac/macbook-pro/13-inch-space-gray-1.4ghz-quad-core-processor-with-turbo-boost-up-to-3.9ghz-128gb?afid=p238%7Csbepnohbm-dc_mtid_1870765e38482_pcrid_246386726307_pgrid_14874568330_&cid=aos-us-kwgo-pla-mac--slid-----product-MUHN2LL/A"
+      "usd": 4,
+      "eur": "3.64",
+      "link": "https://guide.freecodecamp.org/javascript/falsy-values/"
     },
     {
       "id": "UgrFZBpl",

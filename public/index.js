@@ -27,7 +27,6 @@ const loadFavorites = function () {
     .then(function (response) {
       console.log(response)
       response.text()
-      console.log("response body: " + response)
         .then(function (data) {
           const favs = JSON.parse(data)
 
@@ -41,7 +40,7 @@ const loadFavorites = function () {
                         <h5 class="card-title">${favs[i].name}</h5>
                         <p class="card-text"><medium class="text-muted">${favs[i].category}</medium></p>
                         <p class="card-text">Price: $${favs[i].usd} | €${favs[i].eur}</p>
-                        <a class="btn btn-secondary stretched-link" href="${favs[i].link} target="_blank">Buy</a> 
+                        <a class="btn btn-secondary stretched-link" href="${favs[i].link}">Buy</a> 
                     </div>
                     <div class="card-footer bg-transparent">${stars}</div>
                   </div>`;
@@ -82,7 +81,7 @@ const loadAllResults = function () {
           for (let i = 0; i < favs.length; i++) {
             let stars = displayStars(favs[i].rating);
             htmlTable += `<tr>
-                        <td><a class="link" href="${favs[i].link} target="_blank">${favs[i].name}</a> </td>
+                        <td><a class="link" href="${favs[i].link}">${favs[i].name}</a> </td>
                         <td>${favs[i].category}</td>
                         <td>$${favs[i].usd}</td>
                         <td>€${favs[i].eur}</td>
@@ -122,8 +121,9 @@ const newItem = function (e) {
       link: inLink.value
     },
     body = JSON.stringify(json)
-  fetch('/', {
+  fetch('/items', {
       method: 'POST',
+      credentials: "include",
       body,
       headers: {
         'Content-Type': 'application/json'
@@ -141,8 +141,9 @@ const deleteItem = function (id) {
     id: id
   };
   const body = JSON.stringify(idJson);
-  fetch('/', {
+  fetch('/items', {
       method: 'DELETE',
+      credentials: "include",
       body,
       headers: {
         'Content-Type': 'application/json'
@@ -173,8 +174,9 @@ const editItem = function (e) {
     },
     body = JSON.stringify(json)
 
-  fetch('/', {
+  fetch('/items', {
       method: 'PUT',
+      credentials: "include",
       body,
       headers: {
         'Content-Type': 'application/json'

@@ -128,7 +128,30 @@ const myLocalStrategy = function (username, password, done) {
   }
 }
 
-passport.use(new Local(myLocalStrategy))
+const mySignupStrategy = function (username, password, done) {
+  let isDuplicate = db.get("users").find(__user => __user.username === username);
+
+  if (isDuplicate.value() === undefined) {
+    db.get("users").push({
+      username: username,
+      password: password
+    }).write();
+    console.log("new user added to db!");
+
+    return done(null, {
+      username,
+      password
+    })
+
+  } else {
+    return done(null, false, {
+      message: 'username already exists'
+    })
+  }
+}
+
+passport.use("local", new Local(myLocalStrategy))
+passport.use("local-signup", new Local(mySignupStrategy))
 
 passport.serializeUser((user, done) => done(null, user.username))
 
@@ -192,7 +215,9 @@ app.get('/items', function (req, res) {
 });
 
 app.get('/index', function (req, res) {
+  console.log(req.user)
   if (req.user == undefined) {
+    console.log("undefined user")
     res.writeHead(404, {
       'Content-Type': 'text/html'
     })
@@ -205,8 +230,11 @@ app.get('/index', function (req, res) {
 //adds a new item
 app.post('/items', function (req, res) {
   let data = req.body
+  let user = req.user ? req.user.username : "no user"
+
   const newItemObj = {
     'id': shortid.generate(),
+    'user': user,
     'name': data.name,
     'category': data.category,
     'rating': parseInt(data.rating),
@@ -234,23 +262,14 @@ app.post(
     })
   })
 
-app.post('/register', function (req, res) {
-  let creds = req.body
+app.post('/register',
+  passport.authenticate('local-signup'),
+  function (req, res) {
+    res.json({
+      username: req.user.username
+    })
+  })
 
-  let isDuplicate = db.get("users").find(__user => __user.user === creds.username);
-
-  if (isDuplicate.value()) {
-    console.log("user already exists")
-    res.end()
-  } else {
-    db.get("users").push({
-      userName: creds.username,
-      password: creds.password
-    }).write();
-    console.log("new user added to db")
-    res.redirect(200, '/views/index.html')
-  }
-})
 
 //updates an existing item
 app.put('/items', function (request, response) {
@@ -323,7 +342,7 @@ app.put('/items', function (request, response) {
 })
 
 // deletes an existing item
-app.delete('/', function (request, response) {
+app.delete('/items', function (request, response) {
   let data = request.body;
 
   db.get('items')
