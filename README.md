@@ -7,7 +7,7 @@ https://a3-benemrick.glitch.me
 
 This site is built with an `express.js` server that uses `passport.js` middleware for user authetication. All data consumed by shopr is maintained using `lowdb`, which is a local JSON database that persists between server sessions. The front-end styling of shopr is built using the Bootstrap CDN and its CSS components.
 
-# Express.js Middleware
+## Express.js Middleware
 1. `body-parser` to Parse HTTP request body
 2. `passport` for local user authentication 
 3. `session` to track user sessions and associate various requests with a specific account
@@ -17,7 +17,7 @@ This site is built with an `express.js` server that uses `passport.js` middlewar
 ## Technical Achievements
 - **shortid library**: I used the `shortid` (https://github.com/dylang/shortid) javascript library to generate unique, web-friendly ids for each item record in the database. I used the `shortid.generate()` function in `server.js` when creating json records to seed the database with and in the `app.post('/items'` route handler when creating new items to add to the database.
 
-### Design/Evaluation Achievements
+## Design/Evaluation Achievements
 - **HTML Accessibility**: I analyzed the accessibility of my site using Chrome's built-in accessibility audit tool available in the developer tools. Using the recommended strategies and manual evaluation suggestions I was able to improve the site's accessibility score from a 54 to a 71. The site now passes 9 automatic audits as opposed to the pervious 3. The outstanding failures are a result of standard Bootstrap class naming conventions.
 
 ## Known Issues
